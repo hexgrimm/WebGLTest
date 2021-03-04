@@ -1,0 +1,25 @@
+#Unity
+/[Ll]ibrary/
+[Ll]ibrary/
+/[Oo]bj/
+/[Tt]emp/
+uninstall_manifest.txt
+
+
+/Unity/Assets/StreamingAssets/
+
+/[Bb]uild/
+
+#Rider
+*.csproj
+*.csproj.meta
+*.sln
+*.idea/
+
+#VS Code
+.vs/
+
+#OSX
+.DS_Store
+__MACOSX
+__MACOSX.meta
