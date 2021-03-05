@@ -3,12 +3,10 @@
 [Ll]ibrary/
 /[Oo]bj/
 /[Tt]emp/
-uninstall_manifest.txt
-
 
 /Unity/Assets/StreamingAssets/
 
-/[Bb]uild/
+/[Bb]uilds/
 
 #Rider
 *.csproj
