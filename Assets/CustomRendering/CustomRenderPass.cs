@@ -23,6 +23,7 @@ namespace CustomRendering
                 useDynamicScale: false, name: "_SharedRenderTexture"
             );
             
+            StaticProps.TextureId = _buffer1.rt.GetNativeTexturePtr().ToInt32();
             ConfigureTarget(_buffer1.nameID);
             ConfigureClear(ClearFlag.All, Color.black);
         }
@@ -33,6 +34,9 @@ namespace CustomRendering
         // You don't have to call ScriptableRenderContext.submit, the render pipeline will call it at specific points in the pipeline.
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
+            if (renderingData.cameraData.isSceneViewCamera)
+                return;
+            
             CommandBuffer cmd = CommandBufferPool.Get("RenderCustom++");
             
             Profiler.BeginSample("+++ Custom Pass");
