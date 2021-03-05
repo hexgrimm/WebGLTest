@@ -4,13 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | WebGL</title>
-    <script src="%UNITY_WEBGL_LOADER_URL%"></script>
+    
     <script>
 	var TestExternalJS = function(texture)
 	{
 		alert("Marshaled texture Native Id = " + texture);
 		//GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[texture]);
 	}
+	</script>
+
+    <script src="%UNITY_WEBGL_LOADER_URL%"></script>
+    
+	<script>
     var unityInstance = UnityLoader.instantiate("unityContainer", "Build/b1.json");
     </script>
 </head>
