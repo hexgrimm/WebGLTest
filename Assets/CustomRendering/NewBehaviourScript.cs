@@ -13,6 +13,9 @@ namespace CustomRendering
         [DllImport("__Internal")]
         private static extern void BindWebGLTexture(int texture);
         
+        [DllImport("__Internal")]
+        private static extern void CallExternal(int texture);
+        
 
         void Update()
         {
@@ -33,7 +36,7 @@ namespace CustomRendering
                     
                     Debug.Log("Sending Texture Native Pointer " + StaticProps.TextureId);
                     
-                    BindWebGLTexture(StaticProps.TextureId);
+                    CallExternal(StaticProps.TextureId);
                     
                     Debug.Log("Sent successfully");
                 }
