@@ -10,6 +10,18 @@ namespace CustomRendering
     {
         private RTHandle _buffer1;
 
+        public void SetUp()
+        {
+            _buffer1 = RTHandles.Alloc(1024, 1024, 1,
+                dimension: TextureXR.dimension,
+                colorFormat: GraphicsFormat.R8G8B8A8_UNorm,
+                    
+                useDynamicScale: false, name: "_SharedRenderTexture"
+            );
+                
+            StaticProps.TextureId = _buffer1.rt.GetNativeTexturePtr().ToInt32();
+        }
+        
         // This method is called before executing the render pass.
         // It can be used to configure render targets and their clear state. Also to create temporary render target textures.
         // When empty this render pass will render to the active camera render target.
@@ -17,13 +29,9 @@ namespace CustomRendering
         // The render pipeline will ensure target setup and clearing happens in an performance manner.
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
         {
-            _buffer1 = RTHandles.Alloc(Vector2.one, TextureXR.slices, 
-                dimension: TextureXR.dimension,
-                colorFormat: cameraTextureDescriptor.graphicsFormat,
-                useDynamicScale: false, name: "_SharedRenderTexture"
-            );
-            
-            StaticProps.TextureId = _buffer1.rt.GetNativeTexturePtr().ToInt32();
+            if (_buffer1 == null)
+                return;
+
             ConfigureTarget(_buffer1.nameID);
             ConfigureClear(ClearFlag.All, Color.black);
         }
@@ -34,6 +42,10 @@ namespace CustomRendering
         // You don't have to call ScriptableRenderContext.submit, the render pipeline will call it at specific points in the pipeline.
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
+            if (_buffer1 == null)
+                return;
+
+            
             if (renderingData.cameraData.isSceneViewCamera)
                 return;
             
@@ -62,7 +74,7 @@ namespace CustomRendering
         /// Cleanup any allocated resources that were created during the execution of this render pass.
         public override void FrameCleanup(CommandBuffer cmd)
         {
-            _buffer1.Release();
+
         }
     }
 }

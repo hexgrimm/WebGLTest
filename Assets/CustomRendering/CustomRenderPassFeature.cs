@@ -18,6 +18,7 @@ namespace CustomRendering
         // This method is called when setting up the renderer once per-camera.
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
+            _scriptablePass.SetUp();
             renderer.EnqueuePass(_scriptablePass);
         }
     }
